@@ -1,0 +1,12 @@
+jQuery Mobile Apache PhoneGap Cordova Firebase Filepicker iOS 
+===
+
+Right now working on <input type="file"> in iOS6 - they say it's first mobile browser natively supporting access to filesystem. Who knows?
+
+
+Spent some time figuring out ChildBrowser: https://github.com/alunny/ChildBrowser/issues/28#issuecomment-15941458
+
+Suggested some improvents: https://github.com/Filepicker/filepicker-phonegap/issues/1
+
+slowly but surely
+===
