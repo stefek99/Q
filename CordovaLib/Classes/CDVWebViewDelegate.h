@@ -17,20 +17,21 @@
  under the License.
  */
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
-extern NSString* const kCDVDefaultWhitelistRejectionString;
+/**
+ * Distinguishes top-level navigations from sub-frame navigations.
+ * shouldStartLoadWithRequest is called for every request, but didStartLoad
+ * and didFinishLoad is called only for top-level navigations.
+ * Relevant bug: CB-2389
+ */
+@interface CDVWebViewDelegate : NSObject <UIWebViewDelegate>{
+    __weak NSObject <UIWebViewDelegate>* _delegate;
+    NSInteger _loadCount;
+    NSInteger _state;
+    NSInteger _curLoadToken;
+}
 
-@interface CDVWhitelist : NSObject
-
-@property (nonatomic, readonly, strong) NSArray* whitelist;
-@property (nonatomic, readonly, strong) NSArray* expandedWhitelist;
-@property (nonatomic, readonly, assign) BOOL allowAll;
-@property (nonatomic, copy) NSString* whitelistRejectionFormatString;
-
-- (id)initWithArray:(NSArray*)array;
-- (BOOL)URLIsAllowed:(NSURL*)url;
-- (BOOL)schemeIsAllowed:(NSString*)scheme;
-- (NSString*)errorStringForURL:(NSURL*)url;
+- (id)initWithDelegate:(NSObject <UIWebViewDelegate>*)delegate;
 
 @end
