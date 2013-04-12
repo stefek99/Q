@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Filepicker PhoneGap iOS6</title>
+    </head>
+    
+    <script type="text/javascript" src="cordova-2.2.0.js"></script>
+    <script type="text/javascript" src="jquery.min.js"></script>
+    <script type="text/javascript" src="ChildBrowser.js"></script>
+    <script type="text/javascript" src="filepicker.js"></script>
+    <script type="text/javascript">
+
+    function useFilepicker() {
+        /* snippet from: http://stackoverflow.com/questions/13369249/filepicker-io-with-phone-gap-on-ios/14525181#14525181 */      
+        cb = window.plugins.childBrowser;
+        if(cb!=null){
+            cb.onLocationChange = function(loc){
+                if (loc != "about:blank"){
+                    console.log(loc);
+                    if(loc.indexOf("fpurl") > -1) {
+                        cb.close();
+                    }
+                    var n = loc.split("fpurl=");
+                    fpurl = n[1];
+                    alert(fpurl);
+                }
+            };
+            cb.showWebPage("https://www.filepicker.io/dialog/open/?m=image/*&key=______YOUR_KEY_HERE______&referrer=&modal=false&redirect_url=https://www.filepicker.io/dialog/phonegap_done/");
+        }
+    }
+
+    $(function(){
+     $("input#file").on("change", function() {
+
+        
+
+     });
+    });
+
+    </script>
+
+    <body>
+    <h3>function calling Filepicker API</h3>
+    <a href="#" onClick="useFilepicker(); return false">Use Filepicker</a> 
+    <!-- this works, but user experience suffers - I don't want to open extra window, I would like to have take photo / choose existing -->
+
+
+    <h3>input type=&quot;filepicker&quot;</h3>
+    <input type="filepicker"/>
+
+
+    <h3>input type=&quot;file&quot;</h3>
+    <input id="my-file-input" type="file"/>
+
+    </body>
+</html>

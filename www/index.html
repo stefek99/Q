@@ -1,254 +1,39 @@
 <!DOCTYPE html>
-
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <meta name="format-detection" content="telephone=no" />
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-        <!-- <link rel="stylesheet" type="text/css" href="css/index.css" /> -->
-        <title>Hello World</title>
+        <title>Filepicker PhoneGap iOS6</title>
     </head>
-    <body>
-        <div class="app">
-            <h1>Apache Cordova</h1>
-            <div id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
-            </div>
-        </div>
-        <script type="text/javascript" src="cordova-2.2.0.js"></script>
-        <script type="text/javascript" src="jquery.min.js"></script>
-        <script type="text/javascript" src="ChildBrowser.js"></script>
-        <script type="text/javascript" src="filepicker.js"></script>
-        <script type="text/javascript" src="Canvas2ImagePlugin.js"></script>
-        <!-- <script type="text/javascript" src="js/index.js"></script> -->
-        <script type="text/javascript">
-
-        filepicker.setKey("APnrk6MZQxCQf1Aa3wDoTz");
-
-
-        function pick() {
-
-                
-                    cb = window.plugins.childBrowser;
-                    if(cb!=null){
-                        cb.onLocationChange = function(loc){
-                            if (loc != "about:blank"){
-                                console.log(loc);
-                                if(loc.indexOf("fpurl") > -1) {
-                                    cb.close();
-                                }
-                                var n = loc.split("fpurl=");
-                                fpurl = n[1];
-                                alert(fpurl);
-                            }
-                        };
-                        cb.showWebPage("https://www.filepicker.io/dialog/open/?m=image/*&key=APnrk6MZQxCQf1Aa3wDoTz&referrer=&modal=false&redirect_url=https://www.filepicker.io/dialog/phonegap_done/");
-                    }
-        }
-
-
-    // function OK(imageURI) {
-    //                     console.log("on success: " + imageURI);
-                        
-    //                     var image = document.getElementById('myImage');
-    //                     image.src = imageURI;
-                        
-    //                     $("#imgsource").html("hi there: " + imageURI);
-    //                     setTimeout(function() { 
-    //                         alert("OK");
-    //                     }, 0)
-    //                 };
-
-    // function FAIL(message) {
-    //                     console.log("on fail" + message);
-    //                     setTimeout(function() { 
-    //                         alert("FAIL");
-    //                     }, 0);
-    //                 };
-
-    // function fileUri() {
-    //     navigator.camera.getPicture(OK, FAIL { quality: 50, destinationType: Camera.DestinationType.FILE_URI }); 
-    // };
     
+    <script type="text/javascript" src="cordova-2.2.0.js"></script>
+    <script type="text/javascript" src="jquery.min.js"></script>
+    <script type="text/javascript" src="filepicker.js"></script>
+    <script type="text/javascript">
+  
+    filepicker.setKey('l5uQ3k7FQ5GoYCHyTdZV'); // No worries: used filepicker's
 
+    $(function(){
 
+     $("input#file").on("change", function() {
 
+        filepicker.store(this, {location:'S3'}, function(fpfile){
 
-    var pictureSource;   // picture source
-    var destinationType; // sets the format of returned value 
+            $("<a>", {
+                href: fpfile.url,
+                text: "See me!"
+            }).appendTo("body");
 
-    // Wait for Cordova to connect with the device
-    //
-    document.addEventListener("deviceready",onDeviceReady,false);
+        });
+     });
+    });
 
-    // Cordova is ready to be used!
-    //
-    function onDeviceReady() {
-        pictureSource=navigator.camera.PictureSourceType;
-        destinationType=navigator.camera.DestinationType;
-    }
+    </script>
 
-    // Called when a photo is successfully retrieved
-    //
-    function onPhotoDataSuccess(imageData) {
-      // Uncomment to view the base64 encoded image data
-      // console.log(imageData);
+    <body>
 
-      // Get image handle
-      //
-      var smallImage = document.getElementById('smallImage');
+    <a href="upload-firebase/index.html">firebase</a>
+    <a href="firepano/index.html">firebase</a>
 
-      // Unhide image elements
-      //
-      smallImage.style.display = 'block';
+    <input id="file" type="file"/>
 
-      // Show the captured photo
-      // The inline CSS rules are used to resize the image
-      //
-      smallImage.src = "data:image/jpeg;base64," + imageData;
-
-      $("textarea#base64").val(imageData);
-    }
-
-    // Called when a photo is successfully retrieved
-    //
-    function onPhotoURISuccess(imageURI) {
-      // Uncomment to view the image file URI 
-      // console.log(imageURI);
-
-      // Get image handle
-      //
-      var largeImage = document.getElementById('largeImage');
-
-      // Unhide image elements
-      //
-      largeImage.style.display = 'block';
-
-      // Show the captured photo
-      // The inline CSS rules are used to resize the image
-      //
-      largeImage.src = imageURI;
-    }
-
-    // A button will call this function
-    //
-    function capturePhoto() {
-      // Take picture using device camera and retrieve image as base64-encoded string
-      navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50,
-        destinationType: destinationType.DATA_URL });
-    }
-
-    // A button will call this function
-    //
-    function capturePhotoEdit() {
-      // Take picture using device camera, allow edit, and retrieve image as base64-encoded string  
-      navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 20, allowEdit: true,
-        destinationType: destinationType.DATA_URL });
-    }
-
-    // A button will call this function
-    //
-    function getPhoto(source) {
-      // Retrieve image file location from specified source
-      navigator.camera.getPicture(onPhotoURISuccess, onFail, { quality: 50, 
-        destinationType: destinationType.FILE_URI,
-        sourceType: source });
-    }
-
-    // Called if something bad happens.
-    // 
-    function onFail(message) {
-      alert('Failed because: ' + message);
-    }
-
-/////////////////////
-
-function movePic(file){ 
-    window.resolveLocalFileSystemURI(file, resolveOnSuccess, resOnError); 
-} 
-
-//Callback function when the file system uri has been resolved
-function resolveOnSuccess(entry){ 
-    var d = new Date();
-    var n = d.getTime();
-    //new file name
-    var newFileName = n + ".jpg";
-    var myFolderApp = "EasyPacking";
-
-    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSys) {      
-    //The folder is created if doesn't exist
-    fileSys.root.getDirectory( myFolderApp,
-                    {create:true, exclusive: false},
-                    function(directory) {
-                        entry.moveTo(directory, newFileName,  successMove, resOnError);
-                    },
-                    resOnError);
-                    },
-    resOnError);
-}
-
-//Callback function when the file has been moved successfully - inserting the complete path
-function successMove(entry) {
-    alert(entry.fullPath);
-    //I do my insert with "entry.fullPath" as for the path
-}
-
-function resOnError(error) {
-    alert(error.code);
-}
-
-            
-                
-                // var fpfile = { url: 'https://www.filepicker.io/api/file/H7KYuWy1S3e1qvG2M66i',
-                //     filename: 'hello.txt', mimetype: 'text/plain', isWriteable: true, size: 100};
-                // console.log("Storing", text_fpfile.filename);
-                // filepicker.store(fpfile, {filename: 'myCoolFile.txt'},
-                //     function(new_fpfile){
-                //         console.log(JSON.stringify(new_fpfile));
-                //     }
-                // );
-
-$(function(){
- $("input#file").on("change", function() {
-    log($(this).val());
- });
-});
-
-function log(text) {
-    $("textarea#base64").val(text);
-}
-        </script>
-
-
-<h1><a href="upload/index.html">GOTO UPLOAD page</a></h1>
-<!--
-        <h1><a href="photo.html">GOTO photo page</a></h1>
-
-        <a href="#" onClick="pick(); return false">PICK (works while input not)</a>
-        
-
-        <a href="#" onClick="fileUri(); return false;">Photo and display</a>
-
-        <p id="imgsource">will put image URI here</p>
-
-        <img src="" id="myImage"/> 
-
-
-        <h1><a href="#" onclick="getPhoto(pictureSource.PHOTOLIBRARY);">Cordova From Photo Library</a></h1>
-        <img style="display:none;width:60px;height:60px;" id="smallImage" src="" />
-        <img style="display:none;" id="largeImage" src="" />
-
-        <hr>
--->
-    <input id="file" type="file" multiple/>
-    <textarea id="base64">hello world</textarea>
-
-    <button onclick="capturePhoto();">Capture Photo</button> <br>
-    <button onclick="capturePhotoEdit();">Capture Editable Photo</button> <br>
-    <button onclick="getPhoto(pictureSource.PHOTOLIBRARY);">From Photo Library</button><br>
-    <button onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);">From Photo Album</button><br>
-    <img style="display:none;width:60px;height:60px;" id="smallImage" src="" />
-    <img style="display:none;" id="largeImage" src="" /> 
     </body>
 </html>
