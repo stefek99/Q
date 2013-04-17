@@ -24,17 +24,173 @@
 
         });
      });
+
+     $("input#go").on("click", function() {
+        var url = $("input#url").val();
+
+     });
+
+
     });
 
     </script>
+<!--
+    <script type="text/javascript" src="js/iscroll.js"></script>
+    <script type="text/javascript">
 
+        var myScroll;
+        function loaded() {
+            myScroll = new iScroll('wrapper');
+        }
+
+        document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+
+        /* * * * * * * *
+         *
+         * Use this for high compatibility (iDevice + Android)
+         *
+         */
+        document.addEventListener('DOMContentLoaded', function () { setTimeout(loaded, 200); }, false);
+        /*
+         * * * * * * * */
+
+
+        /* * * * * * * *
+         *
+         * Use this for iDevice only
+         *
+         */
+        //document.addEventListener('DOMContentLoaded', loaded, false);
+        /*
+         * * * * * * * */
+
+
+        /* * * * * * * *
+         *
+         * Use this if nothing else works
+         *
+         */
+        //window.addEventListener('load', setTimeout(function () { loaded(); }, 200), false);
+        /*
+         * * * * * * * */
+    
+    </script>
+-->
+    <script>
+
+        
+    document.addEventListener("deviceready", onDeviceReady, false);
+    //document.addEventListener("DOMContentLoaded", onDeviceReady, false);
+
+    function handleOpenURL(url) {
+        window.setTimeout(function () {
+            if( url.indexOf("paymentCompleted") > -1 ){
+                window.alert("paymentCompleted"); 
+            } else f( url.indexOf("paymentCanceled") > -1 ){
+                window.alert("paymentCompleted"); 
+            }
+        }, 1000);
+    }
+
+    function onDeviceReady() {
+
+        // var regexp = /invoke/i;
+        // var regexp2 = /param/i;
+
+        // var properties = "";
+        // for (property in window) {
+        //     if (regexp.test(property) || regexp2.test(property)) {
+        //         properties += property;
+        //     }
+        // }
+
+        if ('invokeString' in window) {
+            window.alert('onDeviceReady: ' + invokeString);
+            $("textarea#log").val(invokeString);
+        } else {
+            window.alert('onDeviceReady: no invokeString');
+            $("textarea#log").val("NU NU");
+        } 
+
+
+        
+
+
+        var networkState = navigator.network.connection.type;
+
+        var states = {};
+        states[Connection.UNKNOWN]  = 'Unknown connection';
+        states[Connection.ETHERNET] = 'Ethernet connection';
+        states[Connection.WIFI]     = 'WiFi connection';
+        states[Connection.CELL_2G]  = 'Cell 2G connection';
+        states[Connection.CELL_3G]  = 'Cell 3G connection';
+        states[Connection.CELL_4G]  = 'Cell 4G connection';
+        states[Connection.NONE]     = 'No network connection';
+
+        //navigator.notification.alert('Connection type: ' + states[networkState]);
+
+    }
+
+
+    </script>
+
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/iscroll.css">
     <body>
+        
+    <textarea id="log">  </textarea>
 
-    <a href="upload-firebase/index.html">NOT EXIST</a>
-    <h1><a href="canvas/index.html">CANVAS</a></h1>
+<!--
+    <form action="" method="POST">
+      <script
+        src="https://checkout.stripe.com/v2/checkout.js" class="stripe-button"
+        data-key="pk_test_tgyc5gRluoZRpYzAq74yRwJy"
+        data-amount="2000"
+        data-name="Demo Site"
+        data-description="2 widgets ($20.00)"
+        data-image="/128x128.png">
+      </script>
+    </form>
+
+    <form action="https://checkout.google.com/api/checkout/v2/checkoutForm/Merchant/738064213602146" id="BB_BuyButtonForm" method="post" name="BB_BuyButtonForm" target="_top">
+        <input name="item_name_1" type="hidden" value="T-shirt"/>
+        <input name="item_description_1" type="hidden" value="Hello World!"/>
+        <input name="item_quantity_1" type="hidden" value="1"/>
+        <input name="item_price_1" type="hidden" value="5.0"/>
+        <input name="item_currency_1" type="hidden" value="GBP"/>
+        <input name="_charset_" type="hidden" value="utf-8"/>
+        <input alt="" src="https://checkout.google.com/buttons/buy.gif?merchant_id=738064213602146&amp;w=117&amp;h=48&amp;style=trans&amp;variant=text&amp;loc=en_US" type="image"/>
+    </form>
+-->
+
+    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_system">
+    <input type="hidden" name="cmd" value="_s-xclick">
+    <input type="hidden" name="hosted_button_id" value="B4QCQCZY8H34G">
+    <input type="image" src="https://www.paypalobjects.com/en_US/PL/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+
+
+    <input type="hidden" name="return" value="success://?paymentCompleted">
+    <input type="hidden" name="cancel_return" value="success://?paymentCanceled">
+    <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+
+    </form>
+
+        
+    <h1><a href="canvas/index.html">CANVAS resize</a></h1>
     <a href="firepano/index.html">firepano</a>
+    <a href="cordova-photo.html">cordova photo</a>
+    <a href="#" onClick="window.open('http://stefanow.net', '_blank');">ChildBrowser</a>
+    <a href="#" onClick="window.open('http://stefanow.net/stuff/customurlscheme/', '_system');">New Windows</a>
+
 
     <input id="file" type="file"/>
+    <input type="text" id="url" value="http://www.whatsmyuseragent.com/"><input type="button" value="go" onClick="window.location=document.getElementById('url').value">
+    <br>
+<!--    
+ Attempt to get stripe working
+ <iframe id="useragent" src="http://www.whatsmyuseragent.com/"></iframe>
+ <iframe id="useragent" src="http://stefanow.net/stuff/stripe/stripe.html"></iframe>
+ -->
 
     </body>
 </html>

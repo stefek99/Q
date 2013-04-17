@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>PayPal trigger</title>
+    </head>
+
+    <script type="text/javascript" src="jquery.min.js"></script>
+    <script type="text/javascript">
+        $(function() {
+            $("form").submit();
+        });
+    </script>
+   
+    <body>
+
+    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+        <input type="hidden" name="cmd" value="_s-xclick">
+        <input type="hidden" name="hosted_button_id" value="B4QCQCZY8H34G">
+        <input type="image" src="https://www.paypalobjects.com/en_US/PL/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+
+
+        <input type="hidden" name="return" value="success://?paymentCompleted">
+        <input type="hidden" name="cancel_return" value="success://?paymentCanceled">
+        <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+    </form>
+
+
+    </body>
+</html>

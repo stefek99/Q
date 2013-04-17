@@ -27,8 +27,8 @@
 
 #import "AppDelegate.h"
 #import "MainViewController.h"
-
 #import <Cordova/CDVPlugin.h>
+#import <Cordova/CDVUserAgentUtil.h>
 
 @implementation AppDelegate
 
@@ -76,6 +76,24 @@
 
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
+    
+// http://stackoverflow.com/a/15682471/775359
+    NSUserDefaults* userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *isAgentDefined = [userDefaults stringForKey:@"Cordova-User-Agent"];
+    
+    if(isAgentDefined == nil) {
+        UIWebView* sampleWebView = [[UIWebView alloc] initWithFrame:CGRectZero];
+        NSString *defaultAgent = [sampleWebView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
+        [sampleWebView release];
+        NSString *myAgent = @"XXX ::: My custom User-Agent";
+        NSString *userAgent = [NSString stringWithFormat:@"%@ %@", defaultAgent, myAgent];
+        
+        [CDVUserAgentUtil acquireLock:^(NSInteger lockToken) {
+            [CDVUserAgentUtil setUserAgent:userAgent lockToken:lockToken];
+            [CDVUserAgentUtil releaseLock:&lockToken];
+        }];
+    }
+    
 
     return YES;
 }
