@@ -12,6 +12,11 @@
     filepicker.setKey('l5uQ3k7FQ5GoYCHyTdZV'); // No worries: used filepicker's
 
     $(function(){
+      
+      debug.log("OK")
+      debug.warn("my warning message");
+      debug.error("my error message");
+      
 
      $("input#file").on("change", function() {
 
@@ -34,53 +39,11 @@
     });
 
     </script>
-<!--
-    <script type="text/javascript" src="js/iscroll.js"></script>
-    <script type="text/javascript">
 
-        var myScroll;
-        function loaded() {
-            myScroll = new iScroll('wrapper');
-        }
-
-        document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
-
-        /* * * * * * * *
-         *
-         * Use this for high compatibility (iDevice + Android)
-         *
-         */
-        document.addEventListener('DOMContentLoaded', function () { setTimeout(loaded, 200); }, false);
-        /*
-         * * * * * * * */
-
-
-        /* * * * * * * *
-         *
-         * Use this for iDevice only
-         *
-         */
-        //document.addEventListener('DOMContentLoaded', loaded, false);
-        /*
-         * * * * * * * */
-
-
-        /* * * * * * * *
-         *
-         * Use this if nothing else works
-         *
-         */
-        //window.addEventListener('load', setTimeout(function () { loaded(); }, 200), false);
-        /*
-         * * * * * * * */
-    
-    </script>
--->
     <script>
 
         
     document.addEventListener("deviceready", onDeviceReady, false);
-    //document.addEventListener("DOMContentLoaded", onDeviceReady, false);
 
     function handleOpenURL(url) {
         window.setTimeout(function () {
@@ -93,17 +56,6 @@
     }
 
     function onDeviceReady() {
-
-        // var regexp = /invoke/i;
-        // var regexp2 = /param/i;
-
-        // var properties = "";
-        // for (property in window) {
-        //     if (regexp.test(property) || regexp2.test(property)) {
-        //         properties += property;
-        //     }
-        // }
-
         if ('invokeString' in window) {
             window.alert('onDeviceReady: ' + invokeString);
             $("textarea#log").val(invokeString);
@@ -176,9 +128,10 @@
     </form>
 
         
-    <h1><a href="canvas/index.html">CANVAS resize</a></h1>
+    <a href="canvas/index.html">CANVAS resize</a>
     <a href="firepano/index.html">firepano</a>
     <a href="cordova-photo.html">cordova photo</a>
+    <h1><a href="cordova-photo-canvas-resize.html">cordova photo canvas resize</a></h1>
     <a href="#" onClick="window.open('http://stefanow.net', '_blank');">ChildBrowser</a>
     <a href="#" onClick="window.open('http://stefanow.net/stuff/customurlscheme/', '_system');">New Windows</a>
 

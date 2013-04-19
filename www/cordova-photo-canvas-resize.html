@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Capture Photo Resize</title>
+
+    <script src="js/canvasresize/jquery-1.7.2.min.js"></script>
+    <script src="js/canvasresize/jquery.exif.js"></script>
+    <script src="js/canvasresize/jquery.canvasResize.js"></script>
+    <script src="js/canvasresize/canvasResize.js"></script>
+    <script src="js/canvasresize/binaryajax.js"></script>
+    <script src="js/canvasresize/exif.js"></script>
+    <script src="cordova-2.5.0.js"></script>
+
+    <script type="text/javascript" charset="utf-8">
+
+    // PHOTO EXAMPLE FROM
+    var pictureSource;  
+    var destinationType;
+    document.addEventListener("deviceready",onDeviceReady,false);
+    function onDeviceReady() {
+        pictureSource=navigator.camera.PictureSourceType;
+        destinationType=navigator.camera.DestinationType;
+        debug.log("OK")
+        debug.warn("my warning message");
+        debug.error("my error message");
+    }
+
+    $().ready(function() {
+      $('input[name=photo]').change(function(e) {
+          var file = e.target.files[0];
+          canvasResizeWrapper(file, $("#resizedImage"))
+        });
+    });
+
+    function onPhotoDataSuccess(imageData) {
+      var image = document.getElementById('imageFromCamera');
+      image.style.display = 'block';
+      image.src = "data:image/jpeg;base64," + imageData;
+
+       canvasResizeWrapper(imageData, $("#resizedImage"));
+    }
+
+    function onPhotoURISuccess(imageURI) {
+      var image = document.getElementById('imageFromCamera');
+      image.style.display = 'block';
+      image.src = imageURI;
+
+      alert(imageURI); console.log(imageURI);
+      canvasResizeWrapper(imageURI, $("#resizedImage"));
+    }
+
+    function capturePhoto() {
+      // Take picture using device camera and retrieve image as base64-encoded string
+      navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50, destinationType: destinationType.DATA_URL });
+    }
+
+    function getPhoto(source) {
+      // Retrieve image file location from specified source
+      navigator.camera.getPicture(onPhotoURISuccess, onFail, { quality: 50, destinationType: destinationType.FILE_URI, sourceType: source });
+    }
+
+    function onFail(message) {
+      alert('Failed because: ' + message);
+    }
+
+    function canvasResizeWrapper(file, img) {
+      console.log("in canvas resize wrapper");
+      canvasResize(file, {
+        width: 300,
+        height: 0,
+        crop: false,
+        quality: 80,
+        callback: function(data, width, height) {
+          img.attr('src', data);
+        }
+      });
+    }
+
+
+    </script>
+                   
+  </head>
+  <body>
+    <button onclick="capturePhoto();">Capture Photo</button> <br>
+    <button onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);">From Photo Album</button><br>
+
+    <br>
+
+    <img style="display:none;width:60px;height:60px;" id="imageFromCamera" src="" />
+
+    <input name="photo" type="file"/>
+
+    <img id="resizedImage" src="" />
+
+  </body>
+</html>

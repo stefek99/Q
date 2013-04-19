@@ -3,6 +3,11 @@
   <head>
     <title>Capture Photo</title>
 
+    <script src="js/canvasresize/jquery-1.7.2.min.js"></script>
+    <script src="js/canvasresize/jquery.exif.js"></script>
+    <script src="js/canvasresize/jquery.canvasResize.js"></script>
+    <script src="js/canvasresize/canvasResize.js"></script>
+
     <script type="text/javascript" charset="utf-8" src="cordova-2.5.0.js"></script>
     <script type="text/javascript" charset="utf-8">
 
@@ -38,10 +43,10 @@
       // The inline CSS rules are used to resize the image
       //
       smallImage.src = "data:image/jpeg;base64," + imageData;
+      imageObj.src = "data:image/jpeg;base64," + imageData; // mstefanow ADDITION
+
     }
 
-    // Called when a photo is successfully retrieved
-    //
     function onPhotoURISuccess(imageURI) {
       // Uncomment to view the image file URI 
       // console.log(imageURI);
@@ -58,26 +63,32 @@
       // The inline CSS rules are used to resize the image
       //
       largeImage.src = imageURI;
+      imageObj.src = imageURI; // mstefanow ADDITION
+
+      canvasResize(imageURI, {
+          width: 300,
+          height: 0,
+          crop: false,
+          quality: 80,
+          //rotate: 90,
+          callback: function(data, width, height) {
+              $("#resizedImage").attr('src', data);
+          }
+      });
     }
 
-    // A button will call this function
-    //
     function capturePhoto() {
       // Take picture using device camera and retrieve image as base64-encoded string
       navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50,
         destinationType: destinationType.DATA_URL });
     }
 
-    // A button will call this function
-    //
     function capturePhotoEdit() {
       // Take picture using device camera, allow edit, and retrieve image as base64-encoded string  
       navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 20, allowEdit: true,
         destinationType: destinationType.DATA_URL });
     }
 
-    // A button will call this function
-    //
     function getPhoto(source) {
       // Retrieve image file location from specified source
       navigator.camera.getPicture(onPhotoURISuccess, onFail, { quality: 50, 
@@ -91,15 +102,58 @@
       alert('Failed because: ' + message);
     }
 
+
+
+
+
+// misio
+function misio() {
+
+}
+
+
+
+
+
     </script>
+                    <script src="jquery-1.7.2.min.js"></script>
+                    <script src="jquery.exif.js"></script>
+                    <script src="jquery.canvasResize.js"></script>
+                    <script src="canvasResize.js"></script>
   </head>
   <body>
     <a href="index.html">index.html</a>
-    <button onclick="capturePhoto();">Capture Photo</button> <br>
+<!--     <button onclick="capturePhoto();">Capture Photo</button> <br>
     <button onclick="capturePhotoEdit();">Capture Editable Photo</button> <br>
-    <button onclick="getPhoto(pictureSource.PHOTOLIBRARY);">From Photo Library</button><br>
+    <button onclick="getPhoto(pictureSource.PHOTOLIBRARY);">From Photo Library</button><br> -->
     <button onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);">From Photo Album</button><br>
+      
+    <br><br>
+    <canvas id="myCanvas" width="578" height="400"></canvas>
+    <script>
+      var canvas = document.getElementById('myCanvas');
+      var context = canvas.getContext('2d');
+      var imageObj = new Image();
+
+      imageObj.onload = function() {
+        context.drawImage(imageObj, 69, 50);
+      };
+      imageObj.src = 'http://www.html5canvastutorials.com/demos/assets/darth-vader.jpg';
+    </script>
+
+    <br><br>
+
+
+    <a href="#" onclick="misio();">misio</a><br>
     <img style="display:none;width:60px;height:60px;" id="smallImage" src="" />
     <img style="display:none;" id="largeImage" src="" />
+
+
+    <img id="myImage" src="" />
+    <img id="resizedImage" src="" />
+
+
+
+
   </body>
 </html>
