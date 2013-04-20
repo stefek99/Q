@@ -77,7 +77,7 @@
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
     
-// http://stackoverflow.com/a/15682471/775359
+    // http://stackoverflow.com/a/15682471/775359
     NSUserDefaults* userDefaults = [NSUserDefaults standardUserDefaults];
     NSString *isAgentDefined = [userDefaults stringForKey:@"Cordova-User-Agent"];
     

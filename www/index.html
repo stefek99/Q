@@ -1,110 +1,40 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Filepicker PhoneGap iOS6</title>
+        <title>Invoke String</title>
     </head>
     
     <script type="text/javascript" src="cordova-2.5.0.js"></script>
     <script type="text/javascript" src="jquery.min.js"></script>
-    <script type="text/javascript" src="filepicker.js"></script>
-    <script type="text/javascript" src="http://192.168.1.65:8080/target/target-script-min.js#misio1"></script>
-    <script type="text/javascript">
-  
-    filepicker.setKey('l5uQ3k7FQ5GoYCHyTdZV'); // No worries: used filepicker's
-
-    $(function(){
-     $("input#file").on("change", function() {
-        filepicker.store(this, {location:'S3'}, function(fpfile){
-
-            $("<a>", {
-                href: fpfile.url,
-                text: "See me!"
-            }).appendTo("body");
-
-        });
-     });
-
-     $("input#go").on("click", function() {
-        var url = $("input#url").val();
-     });
-    });
-
-    </script>
 
     <script>
 
-        
+    // Code taken from: http://leethams.wordpress.com/2013/04/03/using-url-schemes-in-phonegap-build-apps/
     document.addEventListener("deviceready", onDeviceReady, false);
 
     function handleOpenURL(url) {
         window.setTimeout(function () {
-            if( url.indexOf("paymentCompleted") > -1 ){
-                window.alert("paymentCompleted"); 
-            } else if( url.indexOf("paymentCanceled") > -1 ){
-                window.alert("paymentCompleted"); 
-            }
+            $("textarea#log").val(url);
+            window.alert(url);
         }, 1000);
     }
 
     function onDeviceReady() {
-        if ('invokeString' in window) {
-            window.alert('onDeviceReady: ' + invokeString);
-            $("textarea#log").val(invokeString);
-        } else {
-            window.alert('onDeviceReady: no invokeString');
-            $("textarea#log").val("NU NU");
-        } 
-
-
-        
-        var networkState = navigator.network.connection.type;
-
-        var states = {};
-        states[Connection.UNKNOWN]  = 'Unknown connection';
-        states[Connection.ETHERNET] = 'Ethernet connection';
-        states[Connection.WIFI]     = 'WiFi connection';
-        states[Connection.CELL_2G]  = 'Cell 2G connection';
-        states[Connection.CELL_3G]  = 'Cell 3G connection';
-        states[Connection.CELL_4G]  = 'Cell 4G connection';
-        states[Connection.NONE]     = 'No network connection';
-
-        //navigator.notification.alert('Connection type: ' + states[networkState]);
-
+        // if ('invokeString' in window) {
+        //     window.alert('onDeviceReady: ' + window.invokeString);
+        //     $("textarea#log").val(window.invokeString);
+        // } else {
+        //     window.alert('onDeviceReady: NO invokeString');
+        //     $("textarea#log").val("NO invokeString");
+        // } 
     }
 
-
     </script>
-
-    <link rel="stylesheet" href="css/normalize.css">
     <body>
+
+    <h1>What is the invoke string?</h1>
         
-    <textarea id="log">  </textarea>
-
-
-    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_system">
-        <input type="hidden" name="cmd" value="_s-xclick">
-        <input type="hidden" name="hosted_button_id" value="B4QCQCZY8H34G">
-        <input type="image" src="https://www.paypalobjects.com/en_US/PL/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-
-
-        <input type="hidden" name="return" value="success://?paymentCompleted">
-        <input type="hidden" name="cancel_return" value="success://?paymentCanceled">
-        <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
-    </form>
-
-        
-    <a href="canvas/index.html">CANVAS resize</a>
-    <a href="firepano/index.html">firepano</a>
-    <a href="cordova-photo.html">cordova photo</a>
-    <h1><a href="cordova-photo-canvas-resize.html">resize my</a></h1>
-    <h1><a href="js/canvasresize/index.html">resize their</a></h1>
-    <a href="#" onClick="window.open('http://stefanow.net', '_blank');">ChildBrowser</a>
-    <a href="#" onClick="window.open('http://stefanow.net/stuff/customurlscheme/', '_system');">New Windows</a>
-
-
-    <input id="file" type="file"/>
-    <input type="text" id="url" value="http://www.whatsmyuseragent.com/"><input type="button" value="go" onClick="window.location=document.getElementById('url').value">
-    <br>
+    <textarea id="log"> </textarea>
 
     </body>
 </html>
