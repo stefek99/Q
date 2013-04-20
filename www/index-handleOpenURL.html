@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Invoke String</title>
+    </head>
+    
+    <script type="text/javascript" src="cordova-2.5.0.js"></script>
+    <script type="text/javascript" src="jquery.min.js"></script>
+
+    <script>
+
+    // Code taken from: http://leethams.wordpress.com/2013/04/03/using-url-schemes-in-phonegap-build-apps/
+    document.addEventListener("deviceready", onDeviceReady, false);
+
+    function handleOpenURL(url) {
+        window.setTimeout(function () {
+            $("textarea#log").val(url);
+            window.alert(url);
+        }, 1000);
+    }
+
+    function onDeviceReady() {
+        // if ('invokeString' in window) {
+        //     window.alert('onDeviceReady: ' + window.invokeString);
+        //     $("textarea#log").val(window.invokeString);
+        // } else {
+        //     window.alert('onDeviceReady: NO invokeString');
+        //     $("textarea#log").val("NO invokeString");
+        // } 
+    }
+
+    </script>
+    <body>
+
+    <h1>What is the invoke string?</h1>
+        
+    <textarea id="log"> </textarea>
+
+    </body>
+</html>
