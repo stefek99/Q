@@ -32,12 +32,17 @@
                 //rotate: 90,
                 callback: function(data, width, height) {
 
+                    console.log(data);
+
                     $('<img>').attr('src', data).appendTo('body');
 
                     // At this point data is base64 encoded string
 
-                    filepicker.store(data, function(FPFile){
+                    var newdata = data.replace("data:image/jpeg;base64", "");
+
+                    filepicker.store(newdata, {filename: 'MyCoolPhoto.jpg', mimetype: 'image/jpeg', base64decode: true}, function(FPFile){
                             console.log("Store successful:", JSON.stringify(FPFile));
+                            $("#fromFilepicker").attr("src", FPFile.url);
                         }, function(FPError) {
                             console.log(FPError.toString());
                         }, function(progress) {
@@ -50,9 +55,9 @@
         });
 
         // GET to get data and then feed to image
-        $.get('https://www.filepicker.io/api/file/qoQneW0RVu6XqqDvQSkw', function(data) {
-           $("#fromFilepicker").attr("src", data);
-       });
+       //  $.get('https://www.filepicker.io/api/file/qoQneW0RVu6XqqDvQSkw', function(data) {
+       //     $("#fromFilepicker").attr("src", data);
+       // });
     }
 
     </script>
@@ -62,7 +67,7 @@
         
     <input name="photo" type="file"/>
 
-    <img id="fromFilepicker">
+    <img id="fromFilepicker"/>
 
     </body>
 </html>
