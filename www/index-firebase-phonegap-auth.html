@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
+  <meta name='format-detection' content='telephone=no' />
+  <meta name='viewport' content='user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi' />
+  <title>Firebase Simple Login PhoneGap Example</title>
+  <link rel="stylesheet" href="css/text.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <script type='text/javascript' src='cordova-2.5.0.js'></script>
+  <script type='text/javascript' src='https://cdn.firebase.com/v0/firebase.js'></script>
+  <script type='text/javascript' src='https://cdn.firebase.com/v0/firebase-auth-client.js'></script>
+  <script type='text/javascript' src='js/app.js'></script>
+</head>
+<body>
+
+  <div class="header">
+    <div class="ribbon"></div>
+    <div id="logoLink">
+      <a href="http://www.firebase.com" target="_blank">
+        <img src="img/firebase_os_logo.png" alt="Firebase Logo"/>
+      </a>
+    </div>
+  </div>
+
+  <div class="fivesixth center alignleft clearfix">
+    <div class="full clearfix">
+      <br/>
+      <div class="box">
+        <fieldset>
+          <legend class="bold">Overview</legend>
+          <div class="content">
+            <p>
+              Firebase Simple Login is a built-in service allowing you to
+              authenticate users in your application using only client-side
+              code. It is the simplest way to get up and running with security
+              in your Firebase-powered application.
+            </p>
+            <p>
+              See below for example snippets and to see a live demo of the
+              each of the third-party authentication flows.
+            </p>
+          </div>
+        </fieldset>
+      </div>
+    </div>
+
+    <div class="full">
+      <br/>
+      <div class="box">
+        <fieldset>
+          <legend class="bold">Supported Providers</legend>
+          <div class="content">
+            <p>
+              Click any of the links below to see a live example of authentication in action.
+            </p>
+            <div class="example facebook">
+              <div class="icon"></div>
+              <div class="description">
+                <h4>Facebook</h4>
+                <p><a href="javascript:app.login('facebook');">Launch demo &raquo;</a></p>
+              </div>
+            </div>
+            <div class="example github">
+              <div class="icon"></div>
+              <div class="description">
+                <h4>GitHub</h4>
+                <p><a href="javascript:app.login('github');">Launch demo &raquo;</a></p>
+              </div>
+            </div>
+            <div class="example twitter">
+              <div class="icon"></div>
+              <div class="description">
+                <h4>Twitter</h4>
+                <p><a href="javascript:app.login('twitter');">Launch demo &raquo;</a></p>
+              </div>
+            </div>
+            <div class="example password">
+              <div class="icon"></div>
+              <div class="description">
+                <h4>Email / Password</h4>
+                <p>Flexible UI: it's up to you!</p>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+    </div>
+
+    <div class="center">
+      <img src="img/hr.png"></img>
+    </div>
+
+    <div class="center">
+      <br/>
+      <p class="bold larger">
+        We want to hear from you!
+      </p>
+    </div>
+
+    <div class="center">
+      <p class="large">
+        Need some help?<br/>
+        <a target="_blank" href="mailto:support@firebase.com">support@firebase.com</a>
+      </p>
+    </div>
+    <div class="center">
+      <p class="large">
+        Have ideas? Need collaborators?<br/>
+        <a target="_blank" href="http://groups.google.com/group/firebase-talk">groups.google.com/firebase-talk</a>
+      </p>
+    </div>
+  </div>
+
+  <script type='text/javascript'>
+    app.init();
+  </script>
+  </script>
+</body>
+</html>

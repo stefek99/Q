@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>CANVAS FILEPICKER</title>
+    </head>
+    
+    <script src="cordova-2.5.0.js"></script>
+    <script src="jquery.min.js"></script>
+    <script src="filepicker.js"></script>
+    <script src="js/jquery.exif.js"></script>
+    <script src="js/jquery.canvasResize.js"></script>
+
+    <script>
+    filepicker.setKey('APnrk6MZQxCQf1Aa3wDoTz'); 
+
+    document.addEventListener("deviceready", onDeviceReady, false);
+
+    $().ready(onDeviceReady);
+
+    function onDeviceReady() {
+        if(typeof called != "undefined") return; called = true;
+
+        $('input[name=photo]').change(function(e) {
+            var file = e.target.files[0];
+
+
+            $.canvasResize(file, {
+                width: 300,
+                height: 0,
+                crop: false,
+                quality: 80,
+                //rotate: 90,
+                callback: function(data, width, height) {
+
+                    console.log(data);
+
+                    $('<img>').attr('src', data).appendTo('body');
+
+                    // At this point data is base64 encoded string
+
+                    var newdata = data.replace("data:image/jpeg;base64", "");
+
+                    filepicker.store(newdata, {filename: 'MyCoolPhoto.jpg', mimetype: 'image/jpeg', base64decode: true}, function(FPFile){
+                            console.log("Store successful:", JSON.stringify(FPFile));
+                            $("#fromFilepicker").attr("src", FPFile.url);
+                        }, function(FPError) {
+                            console.log(FPError.toString());
+                        }, function(progress) {
+                            console.log("Loading: "+progress+"%");
+                        }
+                    );     
+
+                }
+            });
+        });
+
+        // GET to get data and then feed to image
+       //  $.get('https://www.filepicker.io/api/file/qoQneW0RVu6XqqDvQSkw', function(data) {
+       //     $("#fromFilepicker").attr("src", data);
+       // });
+    }
+
+    </script>
+    <body>
+
+    <a href="firepano/index.html">firepano</a>
+
+    <h1>CANVAS FILEPICKER</h1>
+        
+    <input name="photo" type="file"/>
+
+    <img id="fromFilepicker"/>
+
+    </body>
+</html>
